@@ -364,12 +364,12 @@
           <div class="form__grid">
             <div class="field">
               <label class="field__label" for="f-name" data-i18n="form.name">Nombre</label>
-              <input class="field__input" id="f-name" name="nombre" type="text" autocomplete="name" required aria-required="true" aria-describedby="f-name-error" />
+              <input class="field__input" id="f-name" name="nombre" type="text" autocomplete="name" spellcheck="false" required aria-required="true" aria-describedby="f-name-error" />
               <p class="field__error" id="f-name-error" data-i18n="form.nameError" hidden>Escribí tu nombre para que Gabi sepa quién le escribe.</p>
             </div>
             <div class="field">
               <label class="field__label" for="f-org" data-i18n="form.org">Productora o evento</label>
-              <input class="field__input" id="f-org" name="productora" type="text" autocomplete="organization" />
+              <input class="field__input" id="f-org" name="productora" type="text" autocomplete="organization" spellcheck="false" />
             </div>
             <div class="field">
               <label class="field__label" for="f-date" data-i18n="form.date">Fecha</label>
@@ -377,7 +377,7 @@
             </div>
             <div class="field">
               <label class="field__label" for="f-city" data-i18n="form.city">Ciudad</label>
-              <input class="field__input" id="f-city" name="ciudad" type="text" autocomplete="address-level2" />
+              <input class="field__input" id="f-city" name="ciudad" type="text" autocomplete="address-level2" spellcheck="false" />
             </div>
             <fieldset class="field field--wide chips">
               <legend class="field__label" data-i18n="form.format">Formato</legend>
