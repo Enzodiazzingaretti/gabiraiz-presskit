@@ -41,7 +41,7 @@
   <link rel="preload" as="image" href="img/hero-720.webp" imagesrcset="img/hero-480.webp 480w, img/hero-720.webp 720w, img/hero-960.webp 960w, img/hero-1200.webp 1200w, img/hero-1440.webp 1440w" imagesizes="(min-width: 1440px) 720px, (min-width: 720px) 50vw, 100vw" fetchpriority="high" />
 
   <script src="boot.js?v=1"></script>
-  <link rel="stylesheet" href="style.css?v=1" />
+  <link rel="stylesheet" href="style.css?v=2" />
 
   <script type="application/ld+json">
   {
@@ -138,8 +138,14 @@
 
       <div class="hero__text">
         <p class="hero__lead" data-i18n="hero.lead">DJ y productor de Mendoza, Argentina.</p>
-        <p class="hero__sub"><span data-i18n="hero.sub1">De downtempo a psychedelic trance.</span> <span data-i18n="hero.sub2">En DJ set o en vivo con quena, ney y clarinete.</span></p>
-        <a class="btn" data-wa href="https://wa.me/5492612578445?text=Hola%20Gabi%2C%20te%20escribo%20por%20una%20fecha." target="_blank" rel="noopener" data-i18n="cta.wa">Escribir por WhatsApp</a>
+        <p class="hero__sub"><span data-i18n="hero.sub1">De downtempo a psychedelic trance.</span> <span data-i18n="hero.sub2">Del DJ set al live act, con instrumentos de viento en vivo.</span></p>
+        <div class="hero__actions">
+          <a class="btn" href="#booking" data-i18n="cta.book">Consultar una fecha</a>
+          <a class="listen" href="#musica">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10.25" /><path d="M10 8.4v7.2l6-3.6z" /></svg>
+            <span data-i18n="cta.listen">Escuchar un set</span>
+          </a>
+        </div>
       </div>
     </section>
 
@@ -159,21 +165,31 @@
         </div>
 
         <div class="bio__text">
-          <p class="bio__lead reveal" data-i18n="bio.lead">Gabi Raíz es un DJ y productor nacido a los pies de la cordillera de los Andes en Mendoza, Argentina, en 1992.</p>
+          <p class="bio__lead reveal" data-i18n="bio.lead">Gabi Raíz es DJ y productor. Nació en 1992 al pie de la cordillera de los Andes, en Mendoza, Argentina.</p>
           <div class="prose reveal">
-            <p data-i18n="bio.p1">Comienza a acercarse a la música a los 16 años tocando la guitarra. Luego, con el paso del tiempo, en 2010 llega a integrar grupos musicales junto a los cuales produce eventos y musicaliza los momentos previos y posteriores de los shows, dando así sus primeros pasos como DJ.</p>
-            <p data-i18n="bio.p2">En 2018 viaja a Francia, donde un año después de grabar su primer podcast despierta el interés del reconocido sello de organic-downtempo Cosmovision Records, con base en Montreal, Canadá. Más tarde comenzaría a grabar mixtapes para diferentes sellos de diversas partes del mundo, entre ellos Kosa Records, con base en la India.</p>
-            <p data-i18n="bio.p3">Sus formatos de presentación varían desde DJ set hasta sets híbridos en los que intervienen instrumentos como vientos andinos (quena), ney turca y clarinete. Su estilo, de naturaleza versátil, varía según los diversos escenarios, pero siempre con fuertes influencias ancestrales de todas partes del mundo. Su performance en vivo puede incluir downtempo, techno, afrohouse, deep, tribal, hasta organic trance y psychedelic trance.</p>
-            <p data-i18n="bio.p4">Su conexión con ritmos ancestrales e instrumentos étnicos lo ha llevado a tener una fuerte impronta tribal, destacando sonidos de trance y misticismo para conectar con la madre naturaleza en donde sea que su música esté presente.</p>
+            <p data-i18n="bio.p1">Se acercó a la música a los 16 años, con la guitarra. En 2010 empezó a tocar en grupos con los que producía eventos y musicalizaba antes y después de cada show. Así dio sus primeros pasos como DJ.</p>
+            <p data-i18n="bio.p2">En 2018 viajó a Francia. Un año después de grabar su primer podcast despertó el interés de Cosmovision Records, reconocido sello de organic downtempo con base en Montreal, Canadá. Después grabó mixtapes para sellos de distintas partes del mundo, entre ellos Kosa Records, de la India.</p>
+            <p data-i18n="bio.p3">Se presenta en DJ set, hybrid set y live act. En los dos últimos suma ney, clarinete, quena, tarka y quenacho. Su estilo es versátil y cambia con cada escenario, pero siempre lleva fuertes influencias ancestrales de todo el mundo. En vivo puede ir del downtempo, el techno, el afrohouse, el deep y el tribal al organic trance y el psychedelic trance.</p>
+            <p data-i18n="bio.p4">Su vínculo con los ritmos ancestrales y los instrumentos étnicos le da a su música una fuerte impronta tribal, con sonidos de trance y misticismo que buscan conectar con la madre naturaleza dondequiera que suene.</p>
           </div>
 
           <div class="facts">
             <div class="fact fact--ruled reveal">
               <h3 class="label" data-i18n="bio.formats">Formatos</h3>
-              <ul class="fact__list">
-                <li>DJ set</li>
-                <li data-i18n="bio.hybrid">Set híbrido con quena, ney y clarinete</li>
-              </ul>
+              <dl class="formats">
+                <div class="format">
+                  <dt class="format__name" lang="en">Live act</dt>
+                  <dd class="format__desc" data-i18n="fmt.live">Ableton y controlador Akai APC40, con ney, clarinete, quena, tarka y quenacho en vivo.</dd>
+                </div>
+                <div class="format">
+                  <dt class="format__name" lang="en">Hybrid set</dt>
+                  <dd class="format__desc" data-i18n="fmt.hybrid">CDJs e instrumentos en vivo.</dd>
+                </div>
+                <div class="format">
+                  <dt class="format__name" lang="en">DJ set</dt>
+                  <dd class="format__desc" data-i18n="fmt.dj">CDJs.</dd>
+                </div>
+              </dl>
             </div>
             <div class="fact reveal">
               <h3 class="label" data-i18n="bio.styles">Estilos</h3>
@@ -215,6 +231,7 @@
         <p class="rituals__meta reveal" data-i18n="rituals.meta">EP en Shango Records, 2025</p>
         <p class="rituals__remix reveal" data-i18n="rituals.remix">Con remixes de Max Tenrom, Claudio Arditti, Ahau, Nat Barrera y Sebuky.</p>
 
+        <h3 class="label player__label reveal" data-i18n="rituals.setLabel">Set completo en SoundCloud</h3>
         <div class="player reveal">
           <iframe class="player__frame"
                   title="The sound of Earth, de Gabi Raíz, en SoundCloud"
@@ -250,7 +267,7 @@
             </div>
             <div class="country reveal">
               <dt class="label" data-i18n="stages.frName">Francia</dt>
-              <dd data-i18n="stages.fr">Le Père Peinard, Usine à Musique y Le Manding’Art, en Toulouse, e Isis Garden Festival</dd>
+              <dd data-i18n="stages.fr">Le Père Peinard, Usine à Musique y Le Manding ’Art, en Toulouse, e Isis Garden Festival</dd>
             </div>
             <div class="country reveal">
               <dt class="label" data-i18n="stages.esName">España</dt>
@@ -260,7 +277,32 @@
 
           <div class="fact fact--ruled reveal">
             <h3 class="label" data-i18n="stages.shared">Compartió escenario con</h3>
-            <p class="shared" data-i18n="stages.sharedList">La Caravane Passe, La P’tite Fumée, Max Tenrom, Taiwan MC, Rodrigo Gallardo, El Extravagante, Estimua, Derrok, Claudio Arditti, Elektrompe, Sidirum, Swarup, Moksha, Jota Karloza, Ahau, Moonanga, Vegan, Nat Barrera, Inti Kunza, Sebastian Venu, Nonpalidece, Zona Ganjah e Hijos del Sol, entre otros.</p>
+            <ul class="artists">
+              <li>La Caravane Passe</li>
+              <li>La P’tite Fumée</li>
+              <li>Max Tenrom</li>
+              <li>Taiwan MC</li>
+              <li>Rodrigo Gallardo</li>
+              <li>El Extravagante</li>
+              <li>Estimua</li>
+              <li>Derrok</li>
+              <li>Claudio Arditti</li>
+              <li>Elektrompe</li>
+              <li>Sidirum</li>
+              <li>Swarup</li>
+              <li>Moksha</li>
+              <li>Jota Karloza</li>
+              <li>Ahau</li>
+              <li>Moonanga</li>
+              <li>Vegan</li>
+              <li>Nat Barrera</li>
+              <li>Inti Kunza</li>
+              <li>Sebastian Venu</li>
+              <li>Nonpalidece</li>
+              <li>Zona Ganjah</li>
+              <li>Hijos del Sol</li>
+            </ul>
+            <p class="artists__more" data-i18n="stages.more">Entre otros.</p>
           </div>
         </div>
       </div>
@@ -280,29 +322,26 @@
 
         <div class="rider__col reveal">
           <h3 class="label" data-i18n="rider.tech">Técnica</h3>
-          <ul class="rider__list">
-            <li>2 CDJs Nexus 2000</li>
-            <li data-i18n="rider.mixer">Mixer Pioneer DJM-900</li>
-            <li data-i18n="rider.monitors">2 monitores estéreo HQ</li>
-            <li data-i18n="rider.mic">1 pie de mic</li>
-            <li data-i18n="rider.power">1 toma corriente múltiple</li>
+          <ul class="spec">
+            <li><span class="spec__qty">2</span><span>CDJs Nexus 2000</span></li>
+            <li><span class="spec__qty">1</span><span data-i18n="rider.mixer">Mixer Pioneer DJM-&#8288;900</span></li>
+            <li><span class="spec__qty">2</span><span data-i18n="rider.monitors">Monitores estéreo HQ</span></li>
+            <li><span class="spec__qty">1</span><span data-i18n="rider.mic">Pie de micrófono</span></li>
+            <li><span class="spec__qty">1</span><span data-i18n="rider.power">Toma de corriente múltiple</span></li>
           </ul>
         </div>
         <div class="rider__col reveal">
           <h3 class="label" data-i18n="rider.hosp">Hospitalidad</h3>
-          <ul class="rider__list">
-            <li data-i18n="rider.water">Agua mineral ×4</li>
-            <li data-i18n="rider.meal">1 comida veg.</li>
-            <li data-i18n="rider.beer">Cerveza artesanal 500 cc ×2</li>
+          <ul class="spec">
+            <li><span class="spec__qty">4</span><span data-i18n="rider.water">Aguas minerales</span></li>
+            <li><span class="spec__qty">1</span><span data-i18n="rider.meal">Comida veg.</span></li>
+            <li><span class="spec__qty">2</span><span data-i18n="rider.beer">Cervezas artesanales de 500 cc</span></li>
           </ul>
         </div>
         <div class="rider__col reveal">
           <h3 class="label" data-i18n="rider.stay">Hospedaje</h3>
-          <ul class="rider__list">
-            <li data-i18n="rider.room">1 habitación doble</li>
-            <li>WiFi</li>
-            <li data-i18n="rider.bath">Baño privado</li>
-            <li>Minibar</li>
+          <ul class="spec">
+            <li><span class="spec__qty">1</span><span data-i18n="rider.room">Habitación doble con baño privado, WiFi y minibar</span></li>
           </ul>
         </div>
       </div>
@@ -311,20 +350,73 @@
     <!-- ══ BOOKING ══ -->
     <section class="section booking" id="booking" aria-labelledby="booking-title">
       <div class="wrap booking__grid">
-        <div class="booking__main">
+        <div class="booking__head">
           <h2 class="title reveal" id="booking-title">Booking</h2>
-          <a class="btn reveal" data-wa href="https://wa.me/5492612578445?text=Hola%20Gabi%2C%20te%20escribo%20por%20una%20fecha." target="_blank" rel="noopener" data-i18n="cta.wa">Escribir por WhatsApp</a>
-          <ul class="contact reveal">
-            <li><a class="contact__phone" href="tel:+5492612578445" aria-label="Llamar al +54 9 261 257-8445" data-i18n-attr="aria-label:booking.call">+54 9 261 257-8445</a></li>
-            <li class="contact__mail">
-              <a class="link" href="mailto:gabiroot92@gmail.com?subject=Booking%20Gabi%20Ra%C3%ADz">gabiroot92@gmail.com</a>
-              <button type="button" class="copy" data-copy="gabiroot92@gmail.com" aria-label="Copiar el mail" data-i18n-attr="aria-label:booking.copyLabel"><span data-i18n="booking.copy">Copiar</span></button>
-            </li>
-          </ul>
-          <p class="sr-only" role="status" aria-live="polite" id="copy-status"></p>
+          <p class="booking__intro reveal" data-i18n="booking.intro">Fechas, colaboraciones y prensa.</p>
         </div>
 
-        <div class="booking__side">
+        <form class="form reveal" id="booking-form" novalidate aria-labelledby="form-title">
+          <div class="form__head">
+            <h3 class="form__title" id="form-title" data-i18n="form.title">Consultá una fecha</h3>
+            <p class="form__hint" id="form-hint" data-i18n="form.hint">Completá lo que sepas: el mensaje se arma solo y se abre en WhatsApp, listo para enviar. Solo el nombre es obligatorio.</p>
+          </div>
+
+          <div class="form__grid">
+            <div class="field">
+              <label class="field__label" for="f-name" data-i18n="form.name">Nombre</label>
+              <input class="field__input" id="f-name" name="nombre" type="text" autocomplete="name" required aria-required="true" aria-describedby="f-name-error" />
+              <p class="field__error" id="f-name-error" data-i18n="form.nameError" hidden>Escribí tu nombre para que Gabi sepa quién le escribe.</p>
+            </div>
+            <div class="field">
+              <label class="field__label" for="f-org" data-i18n="form.org">Productora o evento</label>
+              <input class="field__input" id="f-org" name="productora" type="text" autocomplete="organization" />
+            </div>
+            <div class="field">
+              <label class="field__label" for="f-date" data-i18n="form.date">Fecha</label>
+              <input class="field__input" id="f-date" name="fecha" type="date" />
+            </div>
+            <div class="field">
+              <label class="field__label" for="f-city" data-i18n="form.city">Ciudad</label>
+              <input class="field__input" id="f-city" name="ciudad" type="text" autocomplete="address-level2" />
+            </div>
+            <fieldset class="field field--wide chips">
+              <legend class="field__label" data-i18n="form.format">Formato</legend>
+              <div class="chips__row">
+                <label class="chip"><input type="radio" name="formato" value="Live act" /><span lang="en">Live act</span></label>
+                <label class="chip"><input type="radio" name="formato" value="Hybrid set" /><span lang="en">Hybrid set</span></label>
+                <label class="chip"><input type="radio" name="formato" value="DJ set" /><span lang="en">DJ set</span></label>
+                <label class="chip"><input type="radio" name="formato" value="" data-tbd /><span data-i18n="form.fmtTbd">A definir</span></label>
+              </div>
+            </fieldset>
+            <div class="field field--wide">
+              <label class="field__label" for="f-msg" data-i18n="form.msg">Mensaje</label>
+              <textarea class="field__input field__input--area" id="f-msg" name="mensaje" rows="3" placeholder="Horario, duración del set y todo lo que quieras contarle." data-i18n-attr="placeholder:form.msgPh"></textarea>
+            </div>
+          </div>
+
+          <div class="form__actions">
+            <button type="submit" class="btn btn--lg" data-i18n="form.sendWa">Enviar por WhatsApp</button>
+            <button type="button" class="btn btn--ghost btn--lg" data-send="mail" data-i18n="form.sendMail">Enviar por mail</button>
+          </div>
+          <p class="form__status" id="form-status" role="status" aria-live="polite"></p>
+        </form>
+
+        <div class="booking__info">
+          <dl class="channels reveal">
+            <div class="channel">
+              <dt class="label">WhatsApp</dt>
+              <dd><a class="link channel__value" href="https://wa.me/5492612578445" target="_blank" rel="noopener">+54 9 261 257-8445</a></dd>
+            </div>
+            <div class="channel">
+              <dt class="label">Mail</dt>
+              <dd class="channel__mail">
+                <a class="link channel__value" href="mailto:gabiroot92@gmail.com?subject=Booking%20Gabi%20Ra%C3%ADz">gabiroot92@gmail.com</a>
+                <button type="button" class="copy" data-copy="gabiroot92@gmail.com" aria-label="Copiar el mail" data-i18n-attr="aria-label:booking.copyLabel"><span data-i18n="booking.copy">Copiar</span></button>
+              </dd>
+            </div>
+          </dl>
+          <p class="sr-only" role="status" aria-live="polite" id="copy-status"></p>
+
           <ul class="socials">
             <li class="reveal"><a class="social" href="https://www.instagram.com/gabi_raiz" target="_blank" rel="noopener">
               <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3.5" y="3.5" width="17" height="17" rx="4.5" /><circle cx="12" cy="12" r="3.8" /><circle cx="17.2" cy="6.8" r="0.7" fill="currentColor" stroke="none" /></svg>
@@ -369,6 +461,6 @@
     <p class="foot__credit"><span data-i18n="foot.credit">Sitio web hecho por</span> <a href="https://portfolio-kexxy.vercel.app" target="_blank" rel="noopener">Enzo Diaz Zingaretti</a></p>
   </footer>
 
-  <script src="script.js?v=1" defer></script>
+  <script src="script.js?v=2" defer></script>
 </body>
 </html>

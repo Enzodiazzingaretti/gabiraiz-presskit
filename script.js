@@ -1,5 +1,5 @@
 /* Gabi Raíz — Press kit
-   Barra, entradas de las secciones, idioma (ES / EN) y copiar el mail.
+   Barra, entradas de las secciones, idioma (ES / EN), formulario de booking y copiar el mail.
    Todo el contenido vive en index.html: este archivo sólo lo acompaña. */
 
 (function () {
@@ -14,7 +14,7 @@
   /* ══ Idioma ══════════════════════════════════════════════════════════ */
 
   // El español está escrito en el HTML. Acá va el inglés, más los textos que
-  // sólo aparecen cuando alguien hace algo (copiar el mail, el texto de WhatsApp).
+  // sólo aparecen cuando alguien hace algo (enviar el formulario, copiar el mail).
   var EN = {
     'doc.title': 'Gabi Raíz — Press kit | DJ and producer from Mendoza',
     'skip': 'Skip to content',
@@ -28,21 +28,24 @@
     'hero.alt': 'Gabi Raíz standing in front of a petrol-blue backdrop',
     'hero.lead': 'DJ and producer from Mendoza, Argentina.',
     'hero.sub1': 'From downtempo to psychedelic trance.',
-    'hero.sub2': 'As a DJ set or live with quena, ney and clarinet.',
-    'cta.wa': 'Message on WhatsApp',
-    'wa.text': 'Hi Gabi, I’m reaching out about a booking.',
+    'hero.sub2': 'From DJ set to live act, with live wind instruments.',
+    'cta.book': 'Ask about a date',
+    'cta.listen': 'Listen to a set',
     'bio.alt': 'Gabi Raíz sitting on the studio floor',
-    'bio.lead': 'Gabi Raíz is a DJ and producer born in 1992 at the foot of the Andes, in Mendoza, Argentina.',
-    'bio.p1': 'He found his way into music at 16, playing the guitar. In 2010 he joined bands with whom he produced events and played music before and after their shows, taking his first steps as a DJ.',
-    'bio.p2': 'In 2018 he travelled to France, where, a year after recording his first podcast, he caught the attention of the renowned organic-downtempo label Cosmovision Records, based in Montreal, Canada. He later went on to record mixtapes for labels from different parts of the world, among them India-based Kosa Records.',
-    'bio.p3': 'His performances range from DJ sets to hybrid sets featuring instruments such as Andean winds (quena), Turkish ney and clarinet. His style is versatile and shifts with every setting, but always carries strong ancestral influences from all over the world. A live set can move through downtempo, techno, afrohouse, deep and tribal, all the way to organic trance and psychedelic trance.',
-    'bio.p4': 'His connection with ancestral rhythms and ethnic instruments has given his music a strong tribal imprint, with trance and mystic sounds that connect with Mother Nature wherever his music is played.',
+    'bio.lead': 'Gabi Raíz is a DJ and producer. He was born in 1992 at the foot of the Andes, in Mendoza, Argentina.',
+    'bio.p1': 'He came to music at 16, through the guitar. In 2010 he started playing in bands with which he produced events and played music before and after each show. That is how he took his first steps as a DJ.',
+    'bio.p2': 'In 2018 he travelled to France. A year after recording his first podcast he caught the attention of Cosmovision Records, a renowned organic downtempo label based in Montreal, Canada. He went on to record mixtapes for labels from different parts of the world, among them India’s Kosa Records.',
+    'bio.p3': 'He performs as a DJ set, a hybrid set and a live act. In the last two he adds ney, clarinet, quena, tarka and quenacho. His style is versatile and changes with every stage, but always carries strong ancestral influences from all over the world. Live, he can move from downtempo, techno, afrohouse, deep and tribal to organic trance and psychedelic trance.',
+    'bio.p4': 'His bond with ancestral rhythms and ethnic instruments gives his music a strong tribal imprint, with trance and mystical sounds that seek to connect with Mother Nature wherever it plays.',
     'bio.formats': 'Formats',
-    'bio.hybrid': 'Hybrid set with quena, ney and clarinet',
+    'fmt.live': 'Ableton and an Akai APC40 controller, with live ney, clarinet, quena, tarka and quenacho.',
+    'fmt.hybrid': 'CDJs and live instruments.',
+    'fmt.dj': 'CDJs.',
     'bio.styles': 'Styles',
     'rituals.alt': 'Gabi Raíz wearing a green scarf against a red backdrop',
     'rituals.meta': 'EP on Shango Records, 2025',
     'rituals.remix': 'With remixes by Max Tenrom, Claudio Arditti, Ahau, Nat Barrera and Sebuky.',
+    'rituals.setLabel': 'Full set on SoundCloud',
     'rituals.player': 'The sound of Earth by Gabi Raíz on SoundCloud',
     'rituals.listen': 'Listen to',
     'rituals.on': 'on SoundCloud',
@@ -52,43 +55,61 @@
     'stages.ar': 'Teaser Universo Paralello, VOX, Downtempo Rooftop and Avant Garten',
     'stages.cl': 'Cosmovision Showcase, Santo Remedio and El Corazón del Colibrí, in Melipeuco',
     'stages.frName': 'France',
-    'stages.fr': 'Le Père Peinard, Usine à Musique and Le Manding’Art, in Toulouse, and Isis Garden Festival',
+    'stages.fr': 'Le Père Peinard, Usine à Musique and Le Manding ’Art, in Toulouse, and Isis Garden Festival',
     'stages.esName': 'Spain',
     'stages.shared': 'Shared the stage with',
-    'stages.sharedList': 'La Caravane Passe, La P’tite Fumée, Max Tenrom, Taiwan MC, Rodrigo Gallardo, El Extravagante, Estimua, Derrok, Claudio Arditti, Elektrompe, Sidirum, Swarup, Moksha, Jota Karloza, Ahau, Moonanga, Vegan, Nat Barrera, Inti Kunza, Sebastian Venu, Nonpalidece, Zona Ganjah and Hijos del Sol, among others.',
+    'stages.more': 'Among others.',
     'rider.alt': 'Two CDJs and a Pioneer DJM-900 mixer',
     'rider.tech': 'Technical',
-    'rider.mixer': 'Pioneer DJM-900 mixer',
-    'rider.monitors': '2 HQ stereo monitors',
-    'rider.mic': '1 mic stand',
-    'rider.power': '1 power strip',
+    'rider.mixer': 'Pioneer DJM-\u2060900 mixer',
+    'rider.monitors': 'HQ stereo monitors',
+    'rider.mic': 'Mic stand',
+    'rider.power': 'Power strip',
     'rider.hosp': 'Hospitality',
-    'rider.water': 'Mineral water ×4',
-    'rider.meal': '1 veg. meal',
-    'rider.beer': 'Craft beer 500 ml ×2',
+    'rider.water': 'Bottles of mineral water',
+    'rider.meal': 'Veg. meal',
+    'rider.beer': '500 ml craft beers',
     'rider.stay': 'Accommodation',
-    'rider.room': '1 double room',
-    'rider.bath': 'Private bathroom',
-    'booking.call': 'Call +54 9 261 257-8445',
+    'rider.room': 'Double room with private bathroom, Wi-\u2060Fi and minibar',
+    'booking.intro': 'Bookings, collaborations and press.',
+    'form.title': 'Ask about a date',
+    'form.hint': 'Fill in what you know: the message writes itself and opens in WhatsApp, ready to send. Only your name is required.',
+    'form.name': 'Name',
+    'form.nameError': 'Write your name so Gabi knows who is writing.',
+    'form.org': 'Promoter or event',
+    'form.date': 'Date',
+    'form.city': 'City',
+    'form.format': 'Format',
+    'form.fmtTbd': 'To be defined',
+    'form.msg': 'Message',
+    'form.msgPh': 'Time slot, set length and anything else you want to tell him.',
+    'form.sendWa': 'Send via WhatsApp',
+    'form.sendMail': 'Send via email',
+    'form.waDone': 'WhatsApp opened with your message.',
+    'form.waAgain': 'Open it again',
+    'form.mailDone': 'If your email app didn’t open, write to gabiroot92@gmail.com.',
     'booking.copy': 'Copy',
     'booking.copyLabel': 'Copy email address',
     'booking.copied': 'Copied',
     'booking.copiedStatus': 'Email address copied',
     'booking.download': 'Download photos and logos for flyers',
-    'booking.downloadMeta': '2 MB ZIP',
+    'booking.downloadMeta': '2 MB ZIP',
     'social.ig': ' on Instagram',
     'foot.credit': 'Website by'
   };
 
   // Textos en español que no están escritos en el HTML
   var ES_EXTRA = {
-    'wa.text': 'Hola Gabi, te escribo por una fecha.',
+    'form.waDone': 'Se abrió WhatsApp con tu mensaje.',
+    'form.waAgain': 'Abrirlo de nuevo',
+    'form.mailDone': 'Si no se abrió tu correo, escribí a gabiroot92@gmail.com.',
     'booking.copied': 'Copiado',
     'booking.copiedStatus': 'Mail copiado'
   };
 
   var KEY = 'gabiraiz-lang';
   var WA = 'https://wa.me/5492612578445?text=';
+  var MAIL = 'gabiroot92@gmail.com';
   var ES = {};          // lo que trae el HTML, para poder volver
   var current = 'es';
 
@@ -133,9 +154,8 @@
         if (value != null) el.setAttribute(p.attr, value);
       });
     });
-    $$('[data-wa]').forEach(function (a) {
-      a.href = WA + encodeURIComponent(t('wa.text'));
-    });
+    var status = $('#form-status');
+    if (status) status.textContent = '';
     $$('[data-lang]').forEach(function (btn) {
       btn.setAttribute('aria-pressed', String(btn.getAttribute('data-lang') === current));
     });
@@ -243,6 +263,105 @@
     targets.forEach(function (el) { io.observe(el); });
   }
 
+  /* ══ Formulario de booking ═══════════════════════════════════════════ */
+
+  // "2026-11-14" → "sábado 14 de noviembre" / "Saturday, November 14" (con el año si no es este)
+  function prettyDate(value) {
+    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value || '');
+    if (!m) return '';
+    var d = new Date(+m[1], +m[2] - 1, +m[3]);
+    var opts = { weekday: 'long', day: 'numeric', month: 'long' };
+    if (d.getFullYear() !== new Date().getFullYear()) opts.year = 'numeric';
+    try {
+      var parts = new Intl.DateTimeFormat(current === 'en' ? 'en-US' : 'es-AR', opts).formatToParts(d);
+      if (current !== 'en') {
+        // En castellano va sin coma después del día de la semana
+        parts = parts.filter(function (p, i) { return !(p.type === 'literal' && i === 1); });
+        parts.splice(1, 0, { type: 'literal', value: ' ' });
+      }
+      return parts.map(function (p) { return p.value; }).join('');
+    } catch (e) {
+      return d.toLocaleDateString();
+    }
+  }
+
+  function readForm(form) {
+    var get = function (name) { return (form.elements[name] && form.elements[name].value || '').trim(); };
+    var picked = form.querySelector('input[name="formato"]:checked');
+    var format = '';
+    if (picked) format = picked.hasAttribute('data-tbd') ? (current === 'en' ? 'to be defined' : 'a definir') : picked.value;
+    return {
+      name: get('nombre'),
+      org: get('productora'),
+      date: prettyDate(get('fecha')),
+      city: get('ciudad'),
+      format: format,
+      msg: get('mensaje')
+    };
+  }
+
+  function buildMessage(d) {
+    var en = current === 'en';
+    var hello = (en ? 'Hi Gabi, I’m ' : 'Hola Gabi, soy ') + d.name;
+    if (d.org) hello += (en ? ' from ' : ', de ') + d.org;
+    var ask = en ? 'I’m reaching out about a booking' : 'Te escribo por una fecha';
+    if (d.date) ask += (en ? ' on ' : ' para el ') + d.date;
+    if (d.city) ask += (en ? ' in ' : ' en ') + d.city;
+    var lines = [hello + '.', ask + '.'];
+    if (d.format) lines.push((en ? 'Format: ' : 'Formato: ') + d.format + '.');
+    var text = lines.join('\n');
+    if (d.msg) text += '\n\n' + d.msg;
+    return text;
+  }
+
+  function initForm() {
+    var form = $('#booking-form');
+    if (!form) return;
+    var name = $('#f-name');
+    var error = $('#f-name-error');
+    var status = $('#form-status');
+
+    function validName() {
+      var ok = name.value.trim() !== '';
+      name.setAttribute('aria-invalid', String(!ok));
+      if (error) error.hidden = ok;
+      return ok;
+    }
+
+    name.addEventListener('input', function () {
+      if (name.getAttribute('aria-invalid') === 'true') validName();
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!validName()) { name.focus(); return; }
+      var url = WA + encodeURIComponent(buildMessage(readForm(form)));
+      var win = window.open(url, '_blank');
+      if (win) { win.opener = null; } else { window.location.href = url; }
+      if (status) {
+        status.textContent = t('form.waDone') + ' ';
+        var again = document.createElement('a');
+        again.href = url;
+        again.target = '_blank';
+        again.rel = 'noopener';
+        again.textContent = t('form.waAgain');
+        status.appendChild(again);
+      }
+    });
+
+    var mail = form.querySelector('[data-send="mail"]');
+    if (mail) {
+      mail.addEventListener('click', function () {
+        if (!validName()) { name.focus(); return; }
+        var d = readForm(form);
+        var subject = (current === 'en' ? 'Booking inquiry' : 'Consulta de fecha') + (d.org ? ' — ' + d.org : '');
+        window.location.href = 'mailto:' + MAIL + '?subject=' + encodeURIComponent(subject) +
+          '&body=' + encodeURIComponent(buildMessage(d));
+        if (status) status.textContent = t('form.mailDone');
+      });
+    }
+  }
+
   /* ══ Copiar el mail ══════════════════════════════════════════════════ */
 
   function copyText(text) {
@@ -298,5 +417,6 @@
   initLang();
   initBar();
   initReveals();
+  initForm();
   initCopy();
 })();

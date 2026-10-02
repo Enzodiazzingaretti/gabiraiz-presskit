@@ -18,7 +18,7 @@ Sin framework ni build: HTML, CSS y JavaScript a mano.
 | `index.html` | Todo el contenido en español. Es lo que ven Google y WhatsApp, y lo que se muestra si falla el JavaScript. |
 | `style.css` | Estilos del sitio, incluida la versión para imprimir (rider y contacto en papel). |
 | `boot.js` | Marca que hay JavaScript antes del primer pintado, para que las entradas de las secciones no escondan el contenido si el JS no corre. |
-| `script.js` | Barra, entradas de las secciones, cambio de idioma y botón para copiar el mail. Tiene los textos en inglés. |
+| `script.js` | Barra, entradas de las secciones, cambio de idioma, formulario de booking y botón para copiar el mail. Tiene los textos en inglés. |
 | `fonts/` | Alegreya y Alegreya Sans (Huerta Tipográfica), servidas desde el sitio. Licencia OFL incluida. |
 | `img/` | Fotos en WebP en varios tamaños, logo en SVG, emblema y equipo del rider. |
 | `press/` | Pack para promotores: fotos en alta y logos (SVG y PNG), en un ZIP. |
@@ -34,6 +34,24 @@ sitio elige el idioma del navegador la primera vez y después recuerda el que se
 eligió con los botones ES / EN.
 
 Si se cambia un texto, hay que cambiarlo en los dos lados.
+
+### Formulario de booking
+
+No tiene servidor ni guarda datos. Con lo que se completa (nombre, productora,
+fecha, ciudad, formato y mensaje) arma un mensaje en el idioma de la página y lo
+abre en WhatsApp, listo para enviar. El botón *Enviar por mail* abre el correo
+con el mismo texto. Sólo el nombre es obligatorio. Sin JavaScript el formulario
+no aparece y quedan los datos de contacto.
+
+El número y el mail están en `script.js` (`WA` y `MAIL`) y en los links de la
+sección `#booking` de `index.html`: si cambian, hay que cambiarlos en los dos
+lados.
+
+### Formatos
+
+Live act, hybrid set y DJ set aparecen en la bio (con el equipo de cada uno) y
+como opciones del formulario. Si se suma o se quita un formato, hay que tocar las
+dos partes.
 
 ### El reproductor
 
