@@ -44,13 +44,19 @@
     'bio.styles': 'Styles',
     'rituals.alt': 'Gabi Raíz wearing a green scarf against a red backdrop',
     'rituals.meta': 'EP on Shango Records, 2025',
-    'rituals.remix': 'With remixes by Max Tenrom, Claudio Arditti, Ahau, Nat Barrera and Sebuky.',
-    'rituals.setLabel': 'Full set on SoundCloud',
-    'rituals.player': 'The sound of Earth by Gabi Raíz on SoundCloud',
+    'rituals.remix': 'Featuring Sebuky on “Symbiosis” and remixes by Max Tenrom, Ahau, Claudio Arditti and Nat Barrera.',
+    'rituals.player': 'Rituals EP by Gabi Raíz on SoundCloud',
+    'rituals.tracks': 'EP tracklist',
+    'rituals.with': 'with',
     'rituals.listen': 'Listen to',
     'rituals.on': 'on SoundCloud',
     'rituals.labels': 'Labels',
     'rituals.labelsList': 'Lump Records, Kosa Records, Shango Records, Plurpura Records and Exotic Refreshment, among others.',
+    'sets.title': 'Sets & remixes',
+    'sets.earth': 'A journey through the tribes of the world.',
+    'sets.earthPlayer': 'The sound of Earth by Gabi Raíz on SoundCloud',
+    'sets.souk': 'Original by Nat Barrera and Swa Swally, on Cosmovision Records.',
+    'sets.soukPlayer': 'Souk Zrabi, remixed by Gabi Raíz, on SoundCloud',
     'stages.title': 'Stages',
     'stages.ar': 'Teaser Universo Paralello, VOX, Downtempo Rooftop and Avant Garten',
     'stages.cl': 'Cosmovision Showcase, Santo Remedio and El Corazón del Colibrí, in Melipeuco',
@@ -213,22 +219,20 @@
     if (wide.addEventListener) wide.addEventListener('change', update);
     update();
 
-    // Marca en el menú la sección que se está leyendo
+    // Marca en el menú la sección que se está leyendo (Sets y remixes cuenta como Música)
     var links = $$('.bar__nav a');
     if (!('IntersectionObserver' in window) || !links.length) return;
     var byId = {};
     links.forEach(function (a) { byId[a.getAttribute('href').slice(1)] = a; });
+    if (byId.musica) byId.sets = byId.musica;
+    var visible = {};
 
     var spy = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        var link = byId[entry.target.id];
-        if (!link) return;
-        if (entry.isIntersecting) {
-          links.forEach(function (a) { a.removeAttribute('aria-current'); });
-          link.setAttribute('aria-current', 'true');
-        } else if (link.getAttribute('aria-current')) {
-          link.removeAttribute('aria-current');
-        }
+      entries.forEach(function (entry) { visible[entry.target.id] = entry.isIntersecting; });
+      var active = null;
+      Object.keys(byId).forEach(function (id) { if (!active && visible[id]) active = byId[id]; });
+      links.forEach(function (a) {
+        if (a === active) { a.setAttribute('aria-current', 'true'); } else { a.removeAttribute('aria-current'); }
       });
     }, { rootMargin: '-45% 0px -50% 0px' });
 
@@ -278,28 +282,110 @@
 
   /* ══ Reproductor ═════════════════════════════════════════════════════ */
 
-  function initPlayer() {
-    var frame = $('.player__frame');
-    if (!frame) return;
-    var shown = false;
-    var show = function () {
-      if (shown) return;
-      shown = true;
-      frame.classList.add('is-ready');
-    };
-    // El widget arranca en blanco: se le da un instante para que pinte
-    frame.addEventListener('load', function () { window.setTimeout(show, 300); });
-    // Si el aviso de carga no llega (bloqueadores, red lenta), igual aparece al rato de estar a la vista
-    if ('IntersectionObserver' in window) {
-      var io = new IntersectionObserver(function (entries) {
-        if (!entries[0].isIntersecting) return;
-        io.disconnect();
-        window.setTimeout(show, 6000);
-      });
-      io.observe(frame);
-    } else {
-      show();
+  function initPlayers() {
+    $$('.player__frame').forEach(function (frame) {
+      var shown = false;
+      var show = function () {
+        if (shown) return;
+        shown = true;
+        frame.classList.add('is-ready');
+      };
+      // El widget arranca en blanco: se le da un instante para que pinte
+      frame.addEventListener('load', function () { window.setTimeout(show, 300); });
+      // Si el aviso de carga no llega (bloqueadores, red lenta), igual aparece al rato de estar a la vista
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (entries) {
+          if (!entries[0].isIntersecting) return;
+          io.disconnect();
+          window.setTimeout(show, 6000);
+        });
+        io.observe(frame);
+      } else {
+        show();
+      }
+    });
+  }
+
+  /* ══ Temas del EP ════════════════════════════════════════════════════ */
+
+  // El reproductor del EP carga un tema por vez; la lista de abajo elige cuál. Cada tema es un link a
+  // SoundCloud: si el reproductor respondió alguna vez, el click lo toca acá mismo (con el protocolo de
+  // mensajes del widget), marca el que suena y al terminar sigue con el próximo, como en el disco.
+  function initTracks() {
+    var frame = $('#ep .player__frame');
+    var list = $('.tracks');
+    if (!frame || !list || !window.postMessage) return;
+    var rows = $$('.track[data-sc]', list);
+    var ORIGIN = 'https://w.soundcloud.com';
+    var base = frame.getAttribute('src');
+    var ready = false;     // el widget cargado ahora responde
+    var everReady = false; // el widget respondió al menos una vez
+    var loaded = 0;        // tema que está en el reproductor
+    var playing = false;
+
+    function send(method, value) {
+      if (!frame.contentWindow) return;
+      var msg = { method: method };
+      if (value !== undefined) msg.value = value;
+      frame.contentWindow.postMessage(JSON.stringify(msg), ORIGIN);
     }
+
+    function mark() {
+      rows.forEach(function (row, i) {
+        var on = i === loaded;
+        if (on) { row.setAttribute('aria-current', 'true'); } else { row.removeAttribute('aria-current'); }
+        row.classList.toggle('is-playing', on && playing);
+      });
+    }
+
+    function load(i) {
+      loaded = i;
+      playing = false;
+      ready = false;
+      mark();
+      var src = base.replace(/tracks\/\d+/, 'tracks/' + rows[i].getAttribute('data-sc'))
+                    .replace('auto_play=false', 'auto_play=true');
+      frame.setAttribute('src', src);
+    }
+
+    window.addEventListener('message', function (e) {
+      if (e.origin !== ORIGIN || e.source !== frame.contentWindow) return;
+      var data;
+      try { data = JSON.parse(e.data); } catch (err) { return; }
+      if (!data || !data.method) return;
+      if (data.method === 'ready') {
+        ready = true;
+        if (!everReady) {
+          everReady = true;
+          list.classList.add('is-live');
+          rows.forEach(function (row) { row.setAttribute('role', 'button'); });
+        }
+        ['play', 'pause', 'finish'].forEach(function (ev) { send('addEventListener', ev); });
+      } else if (data.method === 'play') {
+        playing = true;
+        mark();
+      } else if (data.method === 'pause') {
+        playing = false;
+        mark();
+      } else if (data.method === 'finish') {
+        playing = false;
+        mark();
+        if (loaded < rows.length - 1) load(loaded + 1);
+      }
+    });
+
+    rows.forEach(function (row, i) {
+      function activate(ev) {
+        if (!everReady) return; // el reproductor nunca respondió: el link abre el tema en SoundCloud
+        ev.preventDefault();
+        if (i !== loaded) { load(i); } else if (ready) { send('toggle'); }
+      }
+      row.addEventListener('click', activate);
+      // Como botón, también responde a la barra espaciadora
+      row.addEventListener('keydown', function (ev) {
+        if (everReady && (ev.key === ' ' || ev.key === 'Spacebar')) activate(ev);
+      });
+    });
   }
 
   /* ══ Rider en PDF ════════════════════════════════════════════════════ */
@@ -494,7 +580,8 @@
   initBar();
   initPrint();
   initReveals();
-  initPlayer();
+  initPlayers();
+  initTracks();
   initForm();
   initCopy();
 })();

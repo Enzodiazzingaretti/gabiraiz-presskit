@@ -68,11 +68,22 @@ pseudo-elemento del color del fondo que se corre hacia la derecha. No se usa
 `clip-path` sobre el elemento, porque si está recortado entero el navegador lo
 da por invisible y la foto no llega a cargar.
 
-### El reproductor
+### Música
 
-Es el embed de SoundCloud de *The sound of Earth*. Para cambiar el tema, se
-reemplaza el `src` del `iframe` en la sección `#musica` (y el link de abajo). La
-CSP sólo deja cargar frames de `w.soundcloud.com`.
+Hay dos bloques y no se mezclan:
+
+- **Rituals** (`#musica`): el EP en Shango Records. El reproductor carga un tema
+  por vez y la lista de abajo elige cuál. Cada fila tiene el link al tema en
+  SoundCloud y su número en `data-sc`. Cuando el reproductor responde,
+  `script.js` lo maneja con los mensajes del widget de SoundCloud: toca el tema
+  elegido, pausa, marca el que suena y al terminar pasa al siguiente. Si el
+  reproductor no carga, los links abren SoundCloud.
+- **Sets y remixes** (`#sets`): cada pieza es un `article.mix` con su tipo
+  (*DJ set*, *Remix*), título, una línea y su reproductor. Para sumar otra se
+  copia un `article` y se cambia el número del tema en el `src`.
+
+Los números de cada tema salen de la página del tema en SoundCloud (*Compartir →
+Insertar*). La CSP sólo deja cargar frames de `w.soundcloud.com`.
 
 ### Caché
 

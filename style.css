@@ -525,25 +525,85 @@ button.btn { border: 0; cursor: pointer; }
 .rituals :focus-visible { outline-color: var(--ritual-claro); }
 .rituals ::selection { background: var(--ritual-claro); color: var(--ritual); }
 
-.player__label { margin-top: 12px; }
 .player {
   margin-top: -2px;
   height: 300px;
   border-radius: 6px;
   overflow: hidden;
   background: var(--ritual-hondo);
-  scroll-margin-top: 44px;
 }
 .player__frame { width: 100%; height: 100%; border: 0; }
 /* SoundCloud carga en blanco: el cuadro aparece recién cuando el reproductor está listo */
 .js .player__frame { opacity: 0; transition: opacity .6s ease; }
 .js .player__frame.is-ready { opacity: 1; }
-/* Al llegar desde "Escuchar un set", el reproductor se marca con un pulso suave */
-@keyframes llamado {
-  from { box-shadow: 0 0 0 0 rgba(240, 217, 213, .5); }
-  to { box-shadow: 0 0 0 16px rgba(240, 217, 213, 0); }
+
+/* Temas del EP: se pueden tocar desde acá (script.js le habla al reproductor de SoundCloud) */
+.tracks { margin-top: 4px; border-top: 1px solid rgba(240, 217, 213, .24); }
+.track {
+  display: grid;
+  grid-template-columns: 2.1em minmax(0, 1fr) auto;
+  align-items: baseline;
+  column-gap: 12px;
+  padding: 11px 4px;
+  border-bottom: 1px solid rgba(240, 217, 213, .16);
+  font-size: 17px;
+  line-height: 1.35;
+  text-decoration: none;
+  transition: background-color .2s ease;
 }
-.player:target { animation: llamado 1.3s var(--ease) .6s 2; }
+.track:hover { background: rgba(240, 217, 213, .06); }
+.track__n,
+.track__time {
+  font-family: var(--sans);
+  font-size: 15px;
+  color: var(--ritual-claro);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.track__n { position: relative; }
+.track__credit { font-style: italic; color: var(--ritual-claro); }
+/* Con el reproductor listo, el número se vuelve "play" al pasar por encima */
+.track__n::before {
+  content: "";
+  position: absolute; left: 1px; top: 50%;
+  border-style: solid;
+  border-width: 5.5px 0 5.5px 9px;
+  border-color: transparent transparent transparent var(--nieve);
+  transform: translateY(-50%);
+  opacity: 0;
+}
+.tracks.is-live .track:hover .track__n,
+.tracks.is-live .track:focus-visible .track__n { color: transparent; }
+.tracks.is-live .track:hover .track__n::before,
+.tracks.is-live .track:focus-visible .track__n::before { opacity: 1; }
+.track[aria-current="true"] .track__name { color: #fff; }
+/* El tema que suena: tres barras en lugar del número */
+@keyframes ecualizador {
+  0% { background-size: 3px 30%, 3px 100%, 3px 55%; }
+  50% { background-size: 3px 95%, 3px 40%, 3px 100%; }
+  100% { background-size: 3px 55%, 3px 80%, 3px 25%; }
+}
+.track.is-playing .track__n { color: transparent; }
+.track.is-playing .track__n::before { opacity: 0; }
+.track.is-playing .track__n::after {
+  content: "";
+  position: absolute; left: 1px; top: 50%;
+  width: 13px; height: 12px;
+  margin-top: -7px;
+  background-image: linear-gradient(var(--nieve), var(--nieve)), linear-gradient(var(--nieve), var(--nieve)), linear-gradient(var(--nieve), var(--nieve));
+  background-repeat: no-repeat;
+  background-position: 0 100%, 5px 100%, 10px 100%;
+  background-size: 3px 30%, 3px 100%, 3px 55%;
+  animation: ecualizador .8s ease-in-out infinite alternate;
+}
+/* Sobre el tema que suena, el ícono pasa a "pausa" */
+.tracks.is-live .track.is-playing:hover .track__n::before,
+.tracks.is-live .track.is-playing:focus-visible .track__n::before { opacity: 0; }
+.tracks.is-live .track.is-playing:hover .track__n::after,
+.tracks.is-live .track.is-playing:focus-visible .track__n::after {
+  animation: none;
+  background-position: 1px 100%, 0 0, 8px 100%;
+  background-size: 3.5px 100%, 0 0, 3.5px 100%;
+}
 .player__alt { font-family: var(--sans); font-size: 15px; line-height: 1.4; color: var(--ritual-claro); }
 .player__alt a {
   display: inline-flex; flex-wrap: wrap; column-gap: .3em;
@@ -575,6 +635,52 @@ button.btn { border: 0; cursor: pointer; }
   .rituals__meta { font-size: 19px; }
   .rituals__remix, .rituals__labels { font-size: 20px; }
   .player { height: 320px; }
+}
+
+/* ── Sets y remixes ───────────────────────────────────────────────────── */
+/* Distinto del EP: fondo noche, reproductores más chicos y el tipo marcado arriba */
+.mixes { background: var(--noche); }
+.mixes__grid { display: grid; gap: 28px; }
+.mixes__list { display: grid; gap: 44px; }
+.mix { display: flex; flex-direction: column; gap: 8px; min-width: 0; scroll-margin-top: 24px; }
+.mix__type {
+  align-self: flex-start;
+  margin-bottom: 6px;
+  padding: 5px 11px;
+  border: 1px solid var(--linea);
+  border-radius: 999px;
+  font-size: 13px;
+  letter-spacing: .02em;
+  color: var(--bruma);
+}
+.mix__title { font-size: 28px; line-height: 1.15; font-weight: 500; }
+.mix__credit { font-size: .72em; font-style: italic; font-weight: 400; color: var(--bruma); white-space: nowrap; }
+.mix__meta { margin-bottom: 10px; font-family: var(--sans); font-size: 16px; line-height: 1.5; color: var(--neblina); max-width: 34em; }
+/* Abajo de todo: si un texto ocupa más líneas, los reproductores quedan igual alineados */
+.mix__player {
+  margin-top: auto;
+  height: 200px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #0E2B34;
+}
+/* Al llegar desde "Escuchar un set", el reproductor se marca con un pulso suave */
+@keyframes llamado {
+  from { box-shadow: 0 0 0 0 rgba(227, 234, 231, .45); }
+  to { box-shadow: 0 0 0 16px rgba(227, 234, 231, 0); }
+}
+.mix:target .mix__player { animation: llamado 1.3s var(--ease) .6s 2; }
+
+@media (min-width: 720px) {
+  .mixes__list { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 32px; }
+}
+@media (min-width: 1024px) {
+  .mixes { padding-block: 110px; }
+  .mix__title { font-size: 30px; }
+  .mix__player { height: 220px; }
+}
+@media (min-width: 1280px) {
+  .mixes__grid { grid-template-columns: minmax(0, var(--side)) minmax(0, 1fr); gap: var(--split-gap); }
 }
 
 /* ── Escenarios ───────────────────────────────────────────────────────── */
@@ -902,7 +1008,8 @@ button.download { background: none; cursor: pointer; text-align: left; }
   .js .reveal { opacity: 1; transition: none; }
   .js .reveal--wipe::after { display: none; }
   .js .player__frame { transition: none; }
-  .player:target { animation: none; }
+  .mix:target .mix__player { animation: none; }
+  .track.is-playing .track__n::after { animation: none; }
   .listen svg circle, .listen svg path { transition: none; }
   .bar { transition: none; }
 }
@@ -913,7 +1020,7 @@ button.download { background: none; cursor: pointer; text-align: left; }
   html, body { background: #fff; }
   body { color: #000; font-size: 12pt; }
   .hero__actions { display: none; }
-  .bar, .skip, .ridge, .roots-wrap, .player, .form, .booking__emblem, .lang, .copy, .rider__print, .hero__media::after, .rituals__media::after { display: none !important; }
+  .bar, .skip, .ridge, .roots-wrap, .player, .mix__player, .form, .booking__emblem, .lang, .copy, .rider__print, .hero__media::after, .rituals__media::after { display: none !important; }
   .hero__ridge, .wordmark { animation: none; }
   .js .reveal { opacity: 1; }
   .js .reveal--wipe::after { display: none; }
@@ -935,6 +1042,7 @@ button.download { background: none; cursor: pointer; text-align: left; }
   .print-rider .hero__sub,
   .print-rider #bio,
   .print-rider #musica,
+  .print-rider #sets,
   .print-rider #escenarios,
   .print-rider .booking__head,
   .print-rider .booking__info > :not(.channels),
