@@ -637,7 +637,7 @@ button.btn { border: 0; cursor: pointer; }
   .player { height: 320px; }
 }
 
-/* ── Sets y remixes ───────────────────────────────────────────────────── */
+/* ── Sets y producciones ──────────────────────────────────────────────── */
 /* Distinto del EP: fondo noche, reproductores más chicos y el tipo marcado arriba */
 .mixes { background: var(--noche); }
 .mixes__grid { display: grid; gap: 28px; }

@@ -78,9 +78,10 @@ Hay dos bloques y no se mezclan:
   `script.js` lo maneja con los mensajes del widget de SoundCloud: toca el tema
   elegido, pausa, marca el que suena y al terminar pasa al siguiente. Si el
   reproductor no carga, los links abren SoundCloud.
-- **Sets y remixes** (`#sets`): cada pieza es un `article.mix` con su tipo
-  (*DJ set*, *Remix*), título, una línea y su reproductor. Para sumar otra se
-  copia un `article` y se cambia el número del tema en el `src`.
+- **Sets y producciones** (`#sets`): cada pieza es un `article.mix` con su tipo
+  (*DJ set*, *Remix*, *Colaboración*), título, una línea y su reproductor. Van
+  primero los sets y después las producciones. Para sumar otra se copia un
+  `article` y se cambia el número del tema en el `src`.
 
 Los números de cada tema salen de la página del tema en SoundCloud (*Compartir →
 Insertar*). La CSP sólo deja cargar frames de `w.soundcloud.com`.

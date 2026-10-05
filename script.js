@@ -52,9 +52,14 @@
     'rituals.on': 'on SoundCloud',
     'rituals.labels': 'Labels',
     'rituals.labelsList': 'Lump Records, Kosa Records, Shango Records, Plurpura Records and Exotic Refreshment, among others.',
-    'sets.title': 'Sets & remixes',
+    'sets.title': 'Sets & productions',
     'sets.earth': 'A journey through the tribes of the world.',
     'sets.earthPlayer': 'The sound of Earth by Gabi Raíz on SoundCloud',
+    'sets.prophecies': 'A journey through the Middle East, among ancestral instruments and landscapes of desert, oases, rivers and winds.',
+    'sets.propheciesPlayer': 'Prophecies by Gabi Raíz on SoundCloud',
+    'sets.collab': 'Collaboration',
+    'sets.symbiotica': 'With Karemba and Sebuky.',
+    'sets.symbioticaPlayer': 'Symbiotica by Karemba, Gabi Raíz and Sebuky on SoundCloud',
     'sets.souk': 'Original by Nat Barrera and Swa Swally, on Cosmovision Records.',
     'sets.soukPlayer': 'Souk Zrabi, remixed by Gabi Raíz, on SoundCloud',
     'stages.title': 'Stages',
@@ -219,7 +224,7 @@
     if (wide.addEventListener) wide.addEventListener('change', update);
     update();
 
-    // Marca en el menú la sección que se está leyendo (Sets y remixes cuenta como Música)
+    // Marca en el menú la sección que se está leyendo (Sets y producciones cuenta como Música)
     var links = $$('.bar__nav a');
     if (!('IntersectionObserver' in window) || !links.length) return;
     var byId = {};
