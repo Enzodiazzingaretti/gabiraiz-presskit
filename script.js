@@ -71,6 +71,8 @@
     'rider.beer': '500 ml craft beers',
     'rider.stay': 'Accommodation',
     'rider.room': 'Double room with private bathroom, Wi-\u2060Fi and minibar',
+    'rider.print': 'Save the rider as PDF',
+    'rider.printMeta': 'One page, ready to print or forward',
     'booking.intro': 'Bookings, collaborations and press.',
     'form.title': 'Ask about a date',
     'form.hint': 'Fill in what you know: the message writes itself and opens in WhatsApp, ready to send. Only your name is required.',
@@ -238,6 +240,17 @@
 
   /* ══ Entradas ════════════════════════════════════════════════════════ */
 
+  // Llama a done cuando la foto de adentro (si hay) ya cargó; con conexión lenta, a los 2,5 s igual
+  function whenLoaded(el, done) {
+    var img = el.tagName === 'IMG' ? el : el.querySelector('img');
+    if (!img || (img.complete && img.naturalWidth)) { done(); return; }
+    var called = false;
+    var finish = function () { if (!called) { called = true; done(); } };
+    img.addEventListener('load', finish);
+    img.addEventListener('error', finish);
+    window.setTimeout(finish, 2500);
+  }
+
   function initReveals() {
     var targets = $$('.reveal');
     if (!targets.length) return;
@@ -251,16 +264,71 @@
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
         var el = entry.target;
+        io.unobserve(el);
         // Los hermanos que entran juntos lo hacen en cascada, apenas
         var siblings = $$(':scope > .reveal', el.parentNode);
         var i = siblings.indexOf(el);
         if (i > 0) el.style.transitionDelay = Math.min(i, 5) * 70 + 'ms';
-        el.classList.add('is-in');
-        io.unobserve(el);
+        whenLoaded(el, function () { el.classList.add('is-in'); });
       });
     }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
 
     targets.forEach(function (el) { io.observe(el); });
+  }
+
+  /* ══ Reproductor ═════════════════════════════════════════════════════ */
+
+  function initPlayer() {
+    var frame = $('.player__frame');
+    if (!frame) return;
+    var shown = false;
+    var show = function () {
+      if (shown) return;
+      shown = true;
+      frame.classList.add('is-ready');
+    };
+    // El widget arranca en blanco: se le da un instante para que pinte
+    frame.addEventListener('load', function () { window.setTimeout(show, 300); });
+    // Si el aviso de carga no llega (bloqueadores, red lenta), igual aparece al rato de estar a la vista
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        if (!entries[0].isIntersecting) return;
+        io.disconnect();
+        window.setTimeout(show, 6000);
+      });
+      io.observe(frame);
+    } else {
+      show();
+    }
+  }
+
+  /* ══ Rider en PDF ════════════════════════════════════════════════════ */
+
+  // Imprime sólo el rider (ver @media print en style.css); el PDF se guarda desde la ventana de impresión
+  function initPrint() {
+    var btn = $('[data-print="rider"]');
+    if (!btn || typeof window.print !== 'function') return;
+    btn.hidden = false;
+    var root = document.documentElement;
+    var title = document.title;
+    var printing = window.matchMedia ? window.matchMedia('print') : null;
+
+    function reset() {
+      root.classList.remove('print-rider');
+      document.title = title;
+    }
+    window.addEventListener('afterprint', reset);
+    if (printing && printing.addEventListener) {
+      printing.addEventListener('change', function (e) { if (!e.matches) reset(); });
+    }
+
+    btn.addEventListener('click', function () {
+      title = document.title;
+      root.classList.add('print-rider');
+      // El nombre del título es el que propone el navegador para el archivo
+      document.title = 'Gabi Raíz — Rider';
+      window.print();
+    });
   }
 
   /* ══ Formulario de booking ═══════════════════════════════════════════ */
@@ -320,6 +388,14 @@
     var name = $('#f-name');
     var error = $('#f-name-error');
     var status = $('#form-status');
+
+    // Las fechas pasadas no se pueden elegir
+    var date = $('#f-date');
+    if (date) {
+      var today = new Date();
+      var pad = function (n) { return (n < 10 ? '0' : '') + n; };
+      date.min = today.getFullYear() + '-' + pad(today.getMonth() + 1) + '-' + pad(today.getDate());
+    }
 
     function validName() {
       var ok = name.value.trim() !== '';
@@ -416,7 +492,9 @@
   $$('[data-year]').forEach(function (el) { el.textContent = String(new Date().getFullYear()); });
   initLang();
   initBar();
+  initPrint();
   initReveals();
+  initPlayer();
   initForm();
   initCopy();
 })();

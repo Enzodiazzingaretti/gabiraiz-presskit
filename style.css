@@ -73,6 +73,8 @@
 
 html {
   scroll-behavior: smooth;
+  scrollbar-color: rgba(159, 176, 174, .4) var(--noche);
+  -webkit-tap-highlight-color: rgba(227, 234, 231, .12);
   scroll-padding-top: calc(var(--bar-h) + 16px);
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
@@ -188,6 +190,7 @@ button.btn { border: 0; cursor: pointer; }
 .link:hover { text-decoration-color: currentColor; }
 
 .photo { width: 100%; border-radius: 4px; }
+.photo-wrap { border-radius: 4px; }
 
 .fact { display: flex; flex-direction: column; gap: 12px; }
 .fact--ruled { padding-top: 24px; border-top: 1px solid var(--linea); }
@@ -370,7 +373,10 @@ button.btn { border: 0; cursor: pointer; }
   text-decoration: none;
 }
 .listen svg { width: 28px; height: 28px; flex-shrink: 0; fill: none; stroke: currentColor; stroke-width: 1.3; }
-.listen svg path { fill: currentColor; stroke: none; }
+.listen svg path { fill: currentColor; stroke: none; transition: fill .25s ease; }
+.listen svg circle { transition: fill .25s ease; }
+.listen:hover svg circle { fill: currentColor; }
+.listen:hover svg path { fill: var(--petroleo); }
 .listen span {
   text-decoration: underline;
   text-decoration-color: var(--linea);
@@ -517,6 +523,7 @@ button.btn { border: 0; cursor: pointer; }
 .rituals .fact--ruled { border-top-color: rgba(240, 217, 213, .3); margin-top: 12px; }
 .rituals__labels { font-size: 18px; line-height: 1.5; max-width: 34em; }
 .rituals :focus-visible { outline-color: var(--ritual-claro); }
+.rituals ::selection { background: var(--ritual-claro); color: var(--ritual); }
 
 .player__label { margin-top: 12px; }
 .player {
@@ -525,8 +532,18 @@ button.btn { border: 0; cursor: pointer; }
   border-radius: 6px;
   overflow: hidden;
   background: var(--ritual-hondo);
+  scroll-margin-top: 44px;
 }
 .player__frame { width: 100%; height: 100%; border: 0; }
+/* SoundCloud carga en blanco: el cuadro aparece recién cuando el reproductor está listo */
+.js .player__frame { opacity: 0; transition: opacity .6s ease; }
+.js .player__frame.is-ready { opacity: 1; }
+/* Al llegar desde "Escuchar un set", el reproductor se marca con un pulso suave */
+@keyframes llamado {
+  from { box-shadow: 0 0 0 0 rgba(240, 217, 213, .5); }
+  to { box-shadow: 0 0 0 16px rgba(240, 217, 213, 0); }
+}
+.player:target { animation: llamado 1.3s var(--ease) .6s 2; }
 .player__alt { font-family: var(--sans); font-size: 15px; line-height: 1.4; color: var(--ritual-claro); }
 .player__alt a {
   display: inline-flex; flex-wrap: wrap; column-gap: .3em;
@@ -604,6 +621,7 @@ button.btn { border: 0; cursor: pointer; }
 }
 .rider__gear img { position: relative; width: 100%; max-width: 760px; margin-inline: auto; }
 .rider__col { display: flex; flex-direction: column; gap: 10px; }
+.rider__print { justify-self: start; margin-top: 4px; }
 .spec {
   display: flex; flex-direction: column;
   font-family: var(--sans);
@@ -626,7 +644,7 @@ button.btn { border: 0; cursor: pointer; }
 
 @media (min-width: 720px) {
   .rider__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 32px; row-gap: 40px; }
-  .rider__grid .title, .rider__gear { grid-column: 1 / -1; }
+  .rider__grid .title, .rider__gear, .rider__print { grid-column: 1 / -1; }
 }
 @media (min-width: 1024px) {
   .rider { padding-block: 100px; }
@@ -639,6 +657,7 @@ button.btn { border: 0; cursor: pointer; }
   .rider__grid .title { grid-column: 1; grid-row: 1 / span 2; }
   .rider__gear { grid-column: 2 / -1; grid-row: 1; }
   .rider__col:nth-of-type(1) { grid-column: 2; }
+  .rider__print { grid-column: 2 / -1; }
 }
 
 /* ── Booking ──────────────────────────────────────────────────────────── */
@@ -690,6 +709,19 @@ button.btn { border: 0; cursor: pointer; }
 .field__input::-webkit-calendar-picker-indicator { opacity: .7; cursor: pointer; }
 .field__input--area { min-height: 116px; resize: vertical; }
 .field__input[aria-invalid="true"] { border-color: var(--error); }
+.field__input:-webkit-autofill,
+.field__input:-webkit-autofill:hover {
+  -webkit-text-fill-color: var(--nieve);
+  caret-color: var(--nieve);
+  -webkit-box-shadow: 0 0 0 100px #10272F inset;
+  box-shadow: 0 0 0 100px #10272F inset;
+  transition: background-color 9999s step-end;
+}
+.field__input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--nieve);
+  -webkit-box-shadow: 0 0 0 100px #132E37 inset, 0 0 0 3px rgba(227, 234, 231, .12);
+  box-shadow: 0 0 0 100px #132E37 inset, 0 0 0 3px rgba(227, 234, 231, .12);
+}
 .field__error { font-family: var(--sans); font-size: 14px; line-height: 1.4; color: var(--error); }
 
 .chips__row { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -775,6 +807,7 @@ button.btn { border: 0; cursor: pointer; }
   transition: border-color .2s ease, background-color .2s ease;
 }
 .download:hover { border-color: var(--neblina); background: rgba(159, 176, 174, .06); }
+button.download { background: none; cursor: pointer; text-align: left; }
 .download svg {
   width: 22px; height: 22px; flex-shrink: 0; margin-top: 1px;
   fill: none; stroke: currentColor;
@@ -789,10 +822,10 @@ button.btn { border: 0; cursor: pointer; }
   margin: 72px auto 0;
 }
 
+.roots-wrap { margin-top: 8px; }
 .roots {
   width: 100%;
   height: clamp(140px, 18vw, 260px);
-  margin-top: 8px;
 }
 
 @media (min-width: 560px) {
@@ -848,24 +881,42 @@ button.btn { border: 0; cursor: pointer; }
 /* Sólo se esconde lo que JavaScript va a volver a mostrar (ver boot.js). */
 .js .reveal { opacity: 0; }
 .js .reveal.is-in { opacity: 1; transition: opacity .9s var(--ease); }
-.js .reveal--sweep { opacity: 1; clip-path: inset(0 100% 0 0); }
-.js .reveal--sweep.is-in { clip-path: inset(0 0 0 0); transition: clip-path 1.6s var(--ease); }
-.js .roots.is-in { transition-duration: 2.6s; }
+/* Cortina: tapa el elemento con el color del fondo y se corre hacia la derecha.
+   No se recorta el elemento con clip-path: Chrome lo daría por invisible, la foto
+   no cargaría nunca y la entrada no se dispararía. */
+.reveal--wipe { position: relative; overflow: hidden; }
+.js .reveal--wipe { opacity: 1; }
+.js .reveal--wipe::after {
+  content: "";
+  position: absolute; inset: -1px;
+  background: var(--petroleo);
+  transform-origin: 100% 50%;
+  pointer-events: none;
+}
+.js .reveal--wipe.is-in::after { transform: scaleX(0); transition: transform 1.6s var(--ease); }
+.js .roots-wrap.is-in::after { transition-duration: 2.6s; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .hero__ridge, .wordmark { animation: none; }
-  .js .reveal, .js .reveal--sweep { opacity: 1; clip-path: none; transition: none; }
+  .js .reveal { opacity: 1; transition: none; }
+  .js .reveal--wipe::after { display: none; }
+  .js .player__frame { transition: none; }
+  .player:target { animation: none; }
+  .listen svg circle, .listen svg path { transition: none; }
   .bar { transition: none; }
 }
 
 /* ── Impresión: rider y contacto legibles en papel ────────────────────── */
 @media print {
-  :root { --petroleo: #fff; --noche: #fff; --ritual: #fff; --nieve: #000; --neblina: #444; --ritual-claro: #444; }
-  body { background: #fff; color: #000; font-size: 12pt; }
-  .bar, .skip, .ridge, .player, .form, .booking__emblem, .lang, .copy, .hero__media::after, .rituals__media::after { display: none !important; }
+  :root { color-scheme: light; --petroleo: #fff; --noche: #fff; --ritual: #fff; --nieve: #000; --neblina: #444; --ritual-claro: #444; }
+  html, body { background: #fff; }
+  body { color: #000; font-size: 12pt; }
+  .hero__actions { display: none; }
+  .bar, .skip, .ridge, .roots-wrap, .player, .form, .booking__emblem, .lang, .copy, .rider__print, .hero__media::after, .rituals__media::after { display: none !important; }
   .hero__ridge, .wordmark { animation: none; }
-  .js .reveal, .js .reveal--sweep { opacity: 1; clip-path: none; }
+  .js .reveal { opacity: 1; }
+  .js .reveal--wipe::after { display: none; }
   .wordmark { fill: #000; }
   .hero { height: auto; }
   .hero__media, .rituals__media { display: none; }
@@ -875,4 +926,35 @@ button.btn { border: 0; cursor: pointer; }
   .section { padding-block: 24pt; }
   .btn { display: none; }
   a { text-decoration: none; }
+}
+@page { margin: 14mm 16mm; }
+
+/* Botón "Guardar el rider en PDF": se imprime sólo el rider, con el logo y los datos de contacto */
+@media print {
+  .print-rider { --linea: #bbb; --linea-suave: #d6d6d6; --bruma: #222; }
+  .print-rider .hero__sub,
+  .print-rider #bio,
+  .print-rider #musica,
+  .print-rider #escenarios,
+  .print-rider .booking__head,
+  .print-rider .booking__info > :not(.channels),
+  .print-rider .foot { display: none !important; }
+  .print-rider .hero__brand { max-width: 64mm; margin: 0 0 3mm; }
+  .print-rider .hero__text { margin: 0 0 9mm; }
+  .print-rider .hero__lead { font-size: 13pt; font-weight: 400; }
+  .print-rider .section { padding: 0; }
+  .print-rider .wrap { padding: 0; max-width: none; }
+  .print-rider .rider__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 8mm; row-gap: 6mm; }
+  .print-rider .rider__grid .title,
+  .print-rider .rider__gear { grid-column: 1 / -1; grid-row: auto; }
+  .print-rider .rider__col { grid-column: auto; }
+  .print-rider .rider__grid .title { font-size: 26pt; }
+  .print-rider .rider__gear { padding: 0; }
+  .print-rider .rider__gear::before { display: none; }
+  .print-rider .rider__gear img { max-width: 110mm; margin: 0; }
+  .print-rider .spec { font-size: 11pt; }
+  .print-rider .booking { margin-top: 10mm; padding-top: 6mm; border-top: 1px solid #bbb; }
+  .print-rider .booking__grid { display: block; }
+  .print-rider .channels { display: flex; gap: 14mm; }
+  .print-rider .channel__value { min-height: 0; font-size: 12pt; }
 }

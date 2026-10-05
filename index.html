@@ -41,7 +41,7 @@
   <link rel="preload" as="image" href="img/hero-720.webp" imagesrcset="img/hero-480.webp 480w, img/hero-720.webp 720w, img/hero-960.webp 960w, img/hero-1200.webp 1200w, img/hero-1440.webp 1440w" imagesizes="(min-width: 1440px) 720px, (min-width: 720px) 50vw, 100vw" fetchpriority="high" />
 
   <script src="boot.js?v=1"></script>
-  <link rel="stylesheet" href="style.css?v=2" />
+  <link rel="stylesheet" href="style.css?v=3" />
 
   <script type="application/ld+json">
   {
@@ -141,7 +141,7 @@
         <p class="hero__sub"><span data-i18n="hero.sub1">De downtempo a psychedelic trance.</span> <span data-i18n="hero.sub2">Del DJ set al live act, con instrumentos de viento en vivo.</span></p>
         <div class="hero__actions">
           <a class="btn" href="#booking" data-i18n="cta.book">Consultar una fecha</a>
-          <a class="listen" href="#musica">
+          <a class="listen" href="#set">
             <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10.25" /><path d="M10 8.4v7.2l6-3.6z" /></svg>
             <span data-i18n="cta.listen">Escuchar un set</span>
           </a>
@@ -154,14 +154,16 @@
       <div class="wrap bio__grid">
         <div class="bio__media">
           <h2 class="title reveal" id="bio-title">Bio</h2>
-          <img class="photo reveal reveal--sweep"
-               src="img/bio-720.webp"
-               srcset="img/bio-480.webp 480w, img/bio-720.webp 720w, img/bio-960.webp 960w, img/bio-1200.webp 1200w"
-               sizes="(min-width: 560px) 480px, calc(100vw - 48px)"
-               width="1200" height="1500"
-               alt="Gabi Raíz sentado en el piso del estudio"
-               data-i18n-attr="alt:bio.alt"
-               loading="lazy" decoding="async" />
+          <div class="photo-wrap reveal reveal--wipe">
+            <img class="photo"
+                 src="img/bio-720.webp"
+                 srcset="img/bio-480.webp 480w, img/bio-720.webp 720w, img/bio-960.webp 960w, img/bio-1200.webp 1200w"
+                 sizes="(min-width: 1440px) 480px, (min-width: 1024px) 34vw, (min-width: 560px) 480px, calc(100vw - 48px)"
+                 width="1200" height="1500"
+                 alt="Gabi Raíz sentado en el piso del estudio"
+                 data-i18n-attr="alt:bio.alt"
+                 loading="lazy" decoding="async" />
+          </div>
         </div>
 
         <div class="bio__text">
@@ -232,7 +234,7 @@
         <p class="rituals__remix reveal" data-i18n="rituals.remix">Con remixes de Max Tenrom, Claudio Arditti, Ahau, Nat Barrera y Sebuky.</p>
 
         <h3 class="label player__label reveal" data-i18n="rituals.setLabel">Set completo en SoundCloud</h3>
-        <div class="player reveal">
+        <div class="player reveal" id="set">
           <iframe class="player__frame"
                   title="The sound of Earth, de Gabi Raíz, en SoundCloud"
                   data-i18n-attr="title:rituals.player"
@@ -344,6 +346,14 @@
             <li><span class="spec__qty">1</span><span data-i18n="rider.room">Habitación doble con baño privado, WiFi y minibar</span></li>
           </ul>
         </div>
+
+        <button type="button" class="download rider__print reveal" data-print="rider" hidden>
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 9V3.5h10V9" /><rect x="3.5" y="9" width="17" height="8" rx="1.5" /><path d="M7 14.5h10v6H7z" /></svg>
+          <span class="download__text">
+            <span data-i18n="rider.print">Guardar el rider en PDF</span>
+            <span class="download__meta" data-i18n="rider.printMeta">Una hoja, lista para imprimir o reenviar</span>
+          </span>
+        </button>
       </div>
     </section>
 
@@ -445,9 +455,11 @@
       <img class="booking__emblem reveal" src="img/emblem.webp" width="300" height="317" alt="" loading="lazy" decoding="async" />
 
       <!-- La misma cordillera, dada vuelta: la raíz. -->
-      <svg class="ridge roots reveal reveal--sweep" viewBox="0 380 1717 760" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-        <g class="ridge__lines" transform="matrix(1 0 0 -1 0 1520)"><use href="#ridge-lines" /></g>
-      </svg>
+      <div class="roots-wrap reveal reveal--wipe" aria-hidden="true">
+        <svg class="ridge roots" viewBox="0 380 1717 760" preserveAspectRatio="none" focusable="false">
+          <g class="ridge__lines" transform="matrix(1 0 0 -1 0 1520)"><use href="#ridge-lines" /></g>
+        </svg>
+      </div>
     </section>
 
   </main>
@@ -461,6 +473,6 @@
     <p class="foot__credit"><span data-i18n="foot.credit">Sitio web hecho por</span> <a href="https://portfolio-kexxy.vercel.app" target="_blank" rel="noopener">Enzo Diaz Zingaretti</a></p>
   </footer>
 
-  <script src="script.js?v=2" defer></script>
+  <script src="script.js?v=3" defer></script>
 </body>
 </html>

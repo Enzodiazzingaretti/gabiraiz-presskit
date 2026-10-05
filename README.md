@@ -18,7 +18,7 @@ Sin framework ni build: HTML, CSS y JavaScript a mano.
 | `index.html` | Todo el contenido en español. Es lo que ven Google y WhatsApp, y lo que se muestra si falla el JavaScript. |
 | `style.css` | Estilos del sitio, incluida la versión para imprimir (rider y contacto en papel). |
 | `boot.js` | Marca que hay JavaScript antes del primer pintado, para que las entradas de las secciones no escondan el contenido si el JS no corre. |
-| `script.js` | Barra, entradas de las secciones, cambio de idioma, formulario de booking y botón para copiar el mail. Tiene los textos en inglés. |
+| `script.js` | Barra, entradas de las secciones, cambio de idioma, reproductor, formulario de booking, rider en PDF y botón para copiar el mail. Tiene los textos en inglés. |
 | `fonts/` | Alegreya y Alegreya Sans (Huerta Tipográfica), servidas desde el sitio. Licencia OFL incluida. |
 | `img/` | Fotos en WebP en varios tamaños, logo en SVG, emblema y equipo del rider. |
 | `press/` | Pack para promotores: fotos en alta y logos (SVG y PNG), en un ZIP. |
@@ -52,6 +52,21 @@ lados.
 Live act, hybrid set y DJ set aparecen en la bio (con el equipo de cada uno) y
 como opciones del formulario. Si se suma o se quita un formato, hay que tocar las
 dos partes.
+
+### Rider en PDF
+
+El botón *Guardar el rider en PDF* abre la ventana de impresión con una versión
+de una hoja: logo, rider y contacto. Sale de la misma página (`@media print` con
+la clase `print-rider` en `style.css`), así que si cambia el rider no hay que
+rehacer ningún archivo.
+
+### Entradas de las secciones
+
+Los bloques aparecen con un fundido al entrar en pantalla (`.reveal`). La foto de
+la bio y las líneas del final se descubren con una cortina (`.reveal--wipe`): un
+pseudo-elemento del color del fondo que se corre hacia la derecha. No se usa
+`clip-path` sobre el elemento, porque si está recortado entero el navegador lo
+da por invisible y la foto no llega a cargar.
 
 ### El reproductor
 
